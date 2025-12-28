@@ -8,3 +8,9 @@ class PDFModel(models.Model):
     Embedded_contents = models.TextField(default='', blank='')
     def __str__(self):
         return self.Title
+    
+class Communication(models.Model):
+    User_query = models.CharField(max_length=100)
+    AI_response = models.TextField()
+    def __str__(self):
+        return self.User_query

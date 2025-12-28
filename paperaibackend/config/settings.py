@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     #Additional Apps
     'apps.accounts',
     'apps.ai',
-    'rest_framework'
+    'rest_framework',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -53,6 +54,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CORS_ALLOWED_ALL_ORIGIN = True
 
 ROOT_URLCONF = 'config.urls'
 

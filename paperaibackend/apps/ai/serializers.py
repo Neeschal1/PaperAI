@@ -5,7 +5,9 @@ from langchain_huggingface import HuggingFaceEmbeddings
 from langchain.chat_models import init_chat_model
 import requests
 import tempfile
+from rest_framework.exceptions import ValidationError
 from dotenv import load_dotenv
+from .chat import chat
 import os
 import re
 
@@ -66,17 +68,17 @@ class CommunicationSerializers(serializers.ModelSerializer):
 
     def create(self, validated_data):
         user = validated_data["User_query"]
-
-        response = init_chat_model(
-            model="llama-3.1-8b-instant", 
-            model_provider="groq"
-        )
+        embeddings = []
         
-        ai = response.invoke(user)
+        query_embeddings = HuggingFaceEmbeddings(model_name = "sentence-transformers/all-MiniLM-L6-v2")
         
-        chats = Communication.objects.create(
-            User_query = user,
-            AI_response = ai.content
-        )
+        try:
+            embedded_query = query_embeddings.aembed_query(user)
+        except:
+            raise ValidationError({'Message':'Some error occured!!!'})
         
-        return chats
+        embeddings.append(embedded_query)
+        
+        response = chat(user, embeddings)
+        
+        return response

@@ -9,5 +9,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='home'),
     path('accounts/', include('apps.accounts.urls')),
-    # path('ai/', include('apps.ai.urls')),
+    path('ai/', include('apps.ai.api.urls')),
 ]

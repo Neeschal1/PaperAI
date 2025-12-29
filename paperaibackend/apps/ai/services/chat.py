@@ -1,4 +1,4 @@
-from .models import Communication, PDFModel
+from ..models import Communication, PDFModel
 from langchain.chat_models import init_chat_model
 import os
 from dotenv import load_dotenv
@@ -32,11 +32,9 @@ def chat(user, embeddings):
     )
     
     stored_embeddings = []
-    
     stored_embeddings.append(PDFModel.Embedded_contents)
-    
     result = cosine_similarity([embeddings], stored_embeddings)
-    
+
     ai = response.invoke(f'{system_prompt}. The user query is: {result}')
     
     ai_response = Communication.objects.create(

@@ -8,5 +8,4 @@ def aihome(request):
 urlpatterns = [
     path('', aihome, name='aihome'),
     path('pdfcontent/', views.PDFModelSerializersView.as_view(), name='PDFModelSerializersView'),
-    # path('chats/', views.CommunicationSerializersView.as_view(), name='CommunicationSerializersView'),
 ]

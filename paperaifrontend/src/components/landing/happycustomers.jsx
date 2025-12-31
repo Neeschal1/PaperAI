@@ -1,10 +1,21 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import testimonials from '../../data/testimonials';
 
 const HappyCustomers = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const cardsPerSlide = 3;
+  const totalSlides = Math.ceil(testimonials.length / cardsPerSlide);
+
+  // Auto-slide every 5 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % totalSlides);
+    }, 10000); // 5 seconds delay
+
+    return () => clearInterval(interval);
+  }, [totalSlides]);
 
   return (
     <section className="py-20 px-6 bg-neutral-50">
@@ -14,65 +25,54 @@ const HappyCustomers = () => {
           Happy Customers
         </h2>
 
-        {/* Desktop: Grid of 3, Mobile: Carousel */}
-        <div className="mb-12">
-          {/* Desktop View - All 3 cards */}
-          <div className="hidden md:grid md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial) => (
+        {/* Testimonials Slider */}
+        <div className="mb-12 relative overflow-hidden">
+          <div 
+            className="flex transition-transform duration-700 ease-in-out"
+            style={{
+              transform: `translateX(-${currentSlide * 33.33}%)`,
+            }}
+          >
+            {Array.from({ length: totalSlides }).map((_, slideIndex) => (
               <div 
-                key={testimonial.id} 
-                className="bg-white rounded-lg p-8 shadow-sm border border-neutral-100 text-center hover:shadow-md transition-shadow duration-300"
+                key={slideIndex}
+                className="min-w-full grid grid-cols-1 md:grid-cols-3 gap-8 px-2"
               >
-                <img 
-                  src={testimonial.image} 
-                  alt={testimonial.name}
-                  className="w-24 h-24 rounded-full mx-auto mb-6 object-cover border-2 border-neutral-200"
-                />
-                
-                <p className="text-neutral-600 text-base mb-8 leading-relaxed italic">
-                  {testimonial.text}
-                </p>
-                
-                <div>
-                  <h4 className="text-sm font-bold text-neutral-800 mb-1 tracking-wide">
-                    {testimonial.name}
-                  </h4>
-                  <p className="text-sm text-neutral-500">
-                    {testimonial.role}
-                  </p>
-                </div>
+                {testimonials
+                  .slice(slideIndex * cardsPerSlide, (slideIndex + 1) * cardsPerSlide)
+                  .map((testimonial) => (
+                    <div 
+                      key={testimonial.id} 
+                      className="bg-white rounded-lg p-8 shadow-sm border border-neutral-100 text-center hover:shadow-md transition-shadow duration-300"
+                    >
+                      <img 
+                        src={testimonial.image} 
+                        alt={testimonial.name}
+                        className="w-24 h-24 rounded-full mx-auto mb-6 object-cover border-2 border-neutral-200"
+                      />
+                      
+                      <p className="text-neutral-600 text-base mb-8 leading-relaxed italic">
+                        {testimonial.text}
+                      </p>
+                      
+                      <div>
+                        <h4 className="text-sm font-bold text-neutral-800 mb-1 tracking-wide">
+                          {testimonial.name}
+                        </h4>
+                        <p className="text-sm text-neutral-500">
+                          {testimonial.role}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
               </div>
             ))}
-          </div>
-
-          {/* Mobile View - Carousel (one at a time) */}
-          <div className="md:hidden">
-            <div className="bg-white rounded-lg p-8 shadow-sm border border-neutral-100 text-center">
-              <img 
-                src={testimonials[currentSlide].image} 
-                alt={testimonials[currentSlide].name}
-                className="w-24 h-24 rounded-full mx-auto mb-6 object-cover border-2 border-neutral-200"
-              />
-              
-              <p className="text-neutral-600 text-base mb-8 leading-relaxed italic">
-                {testimonials[currentSlide].text}
-              </p>
-              
-              <div>
-                <h4 className="text-sm font-bold text-neutral-800 mb-1 tracking-wide">
-                  {testimonials[currentSlide].name}
-                </h4>
-                <p className="text-sm text-neutral-500">
-                  {testimonials[currentSlide].role}
-                </p>
-              </div>
-            </div>
           </div>
         </div>
 
         {/* Pagination Dots */}
         <div className="flex justify-center items-center space-x-3">
-          {[0, 1, 2].map((index) => (
+          {Array.from({ length: totalSlides }).map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentSlide(index)}

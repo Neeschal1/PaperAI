@@ -5,6 +5,7 @@ import Header from '../constants/header';
 import Hero from '../components/landing/hero';
 import FeaturedItems from '../components/landing/featureditem';
 import HappyCustomers from '../components/landing/happycustomers'
+import PopularCategories from '../components/landing/categories';
 
 const Landing = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -24,6 +25,7 @@ const Landing = () => {
       <Hero />
       <FeaturedItems />
       <HappyCustomers />
+      <PopularCategories />
     </div>
   );
 };

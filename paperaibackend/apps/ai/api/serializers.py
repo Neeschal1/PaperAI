@@ -2,6 +2,10 @@ from rest_framework import serializers
 from apps.ai.models.entities import PDFModel
 from apps.ai.services.bookcontents.bookurl import get_book_url
 from langchain_huggingface import HuggingFaceEmbeddings
+import tempfile
+from env_config import Config
+from rest_framework.exceptions import ValidationError
+from pinecone import Pinecone
 
 class PDFModelSerializers(serializers.ModelSerializer):
     class Meta:
@@ -24,5 +28,10 @@ class PDFModelSerializers(serializers.ModelSerializer):
             URL = url,
             Plain_contents = book_content,
         )
+        
+class PineconeEmbeddings(serializers.Serializer):
+    Book_Name = serializers.CharField()
+    Queries = serializers.CharField()
+        
         
         

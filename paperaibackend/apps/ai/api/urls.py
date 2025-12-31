@@ -8,4 +8,5 @@ def aihome(request):
 urlpatterns = [
     path('', aihome, name='aihome'),
     path('pdfcontent/', views.PDFModelSerializersView.as_view(), name='PDFModelSerializersView'),
+    path('pdfcontent/booktitle/', views.PineconeEmbeddingsView.as_view(), name='PineconeEmbeddingsView')
 ]

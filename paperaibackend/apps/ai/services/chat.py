@@ -1,11 +1,12 @@
 from ..models import Communication, PDFModel
 from langchain.chat_models import init_chat_model
 import os
+from env_config import Config
 from dotenv import load_dotenv
 from sklearn.metrics.pairwise import cosine_similarity
 
 load_dotenv()
-os.environ['GROQ_API_KEY'] = os.getenv('GROQ_API_KEY')
+GROQ_API_KEY = Config.GROQ_API_KEY
 
 system_prompt = '''
 You are a document-grounded AI assistant.

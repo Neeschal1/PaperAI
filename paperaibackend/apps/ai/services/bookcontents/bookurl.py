@@ -24,34 +24,13 @@ def get_book_url(validated_data):
     docs = loader.load()
     for doc in docs:
         clean_pdf = clean_pdf + doc.page_content + '\n'
+        clean_book.append(clean_pdf)
         
     # Splitting book contents
-    stripped_book = re.split(r'[,.\n?!]', clean_pdf)
-    for strp in stripped_book:
-        cleaned = strp.strip()
-        if cleaned:
-            clean_book.append(cleaned)
+    # stripped_book = re.split(r'[,.\n?!]', clean_pdf)
+    # for strp in stripped_book:
+    #     cleaned = strp.strip()
+    #     if cleaned:
+    #         clean_book.append(cleaned)
     
     return clean_book
-
-
-
-
-
-
-
-
-
-
-# try:
-    #     loader = PyPDFLoader(temporary_file.name)
-    #     docs = loader.load()
-        
-    #     # Splitting book contents
-    #     stripped_book = re.split(r'[,.\n?!]', docs)
-    #     for strp in stripped_book:
-    #         # clean_book.append(strp.strip())
-    #         clean_book = strp.strip()
-        
-    # except:
-    #     raise ValidationError('Some error occured during the process. Please try again later!!!')

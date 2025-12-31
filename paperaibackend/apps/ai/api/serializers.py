@@ -19,15 +19,10 @@ class PDFModelSerializers(serializers.ModelSerializer):
         url = validated_data['URL']
         book_content = get_book_url(validated_data)
         
-        embed = HuggingFaceEmbeddings(model_name = "sentence-transformers/all-MiniLM-L6-v2")
-        
-        clean_book = embed.embed_documents(book_content)
-        
         return PDFModel.objects.create(
             Title = title_of_the_book,
             URL = url,
             Plain_contents = book_content,
-            Embedded_contents = clean_book
         )
         
         

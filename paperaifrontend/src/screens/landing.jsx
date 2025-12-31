@@ -6,6 +6,8 @@ import Hero from '../components/landing/hero';
 import FeaturedItems from '../components/landing/featureditem';
 import HappyCustomers from '../components/landing/happycustomers'
 import PopularCategories from '../components/landing/categories';
+import StatsSection from '../components/landing/stats';
+import Footer from '../constants/footer';
 
 const Landing = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -26,6 +28,8 @@ const Landing = () => {
       <FeaturedItems />
       <HappyCustomers />
       <PopularCategories />
+      <StatsSection />
+      <Footer />
     </div>
   );
 };

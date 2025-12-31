@@ -9,13 +9,13 @@ const Header = ({ scrolled }) => {
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         <div className={`text-2xl font-bold ${scrolled ? 'text-neutral-900' : 'text-white'}`}>
           <div className='flex flex-row'>
-            <h2 className='text-2xl font-bold text-white'>Paper</h2>
+            <h2 className='text-2xl font-bold text-orange-400'>Paper</h2>
             <h2 className='text-2xl font-bold text-teal-400'>Ai</h2>
           </div>
         </div>
         
         <nav className="hidden md:flex items-center space-x-10">
-          {['HOME', 'ABOUT US', 'PAGES', 'BLOG', 'SHOP', 'CONTACT US'].map((item, idx) => (
+          {['Home', 'Books Available', 'Contribute', 'Blogs', 'About us', 'Contact us'].map((item, idx) => (
             <a
               key={item}
               href="#"
